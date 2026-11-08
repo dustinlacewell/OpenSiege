@@ -80,9 +80,9 @@ function armorHit(sr: number, r: Rng, size: number): Float32Array<ArrayBuffer> {
 function tankGun(sr: number, r: Rng, size: number): Float32Array<ArrayBuffer> {
   const fall = jit(r, 0.16 + 0.08 * size);
   return sum(sr, 0.6, [
-    [body(sr, r, { rise: 0.002, fall, f0: jit(r, 1800), f1: jit(r, 500), grit: false }), 0, 1.0],
-    [shockwave(sr, jit(r, 0.01), 300), 0, 0.5],
-    [air(sr, r, { decay: jit(r, 0.015), lp: jit(r, 4000), hp: 300 }), 0, 0.25],
+    [body(sr, r, { rise: 0.002, fall, f0: jit(r, 1800), f1: jit(r, 500), grit: false, hp: 800 }), 0, 1.0],
+    [shockwave(sr, jit(r, 0.06), 300), 0, 0.5],
+    [air(sr, r, { decay: jit(r, 0.015), lp: jit(r, 3000), hp: 300 }), 0, 0.4],
     [fireball(sr, r, { rise: 0.005, fall: fall * 1.2, fLow: 50, fSpan: 140 }), 0, 0.25],
   ]);
 }
