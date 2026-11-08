@@ -5,6 +5,7 @@ import { air, body, crunch, dust, fireball, shockwave } from "./dsp/layers.ts";
 import { jit, rng, type Rng } from "./dsp/random.ts";
 
 /** Pure. One weapon sound: mono at `sr`, peak 0.9, echoes baked in. `seed` picks the variant; `size` is 0..1. */
+// sr is sample rate, probably
 export type Recipe = (sr: number, seed: number, size: number) => Float32Array<ArrayBuffer>;
 
 /** A dry sound, before the echoes. */
@@ -40,12 +41,12 @@ function finish(dry: Float32Array<ArrayBuffer>, sr: number): Float32Array<ArrayB
 
 /** Howitzer firing: a clean, short report. One "thoom", no crunch, no debris. */
 function howitzer(sr: number, r: Rng, size: number): Float32Array<ArrayBuffer> {
-  const fall = jit(r, 0.28 + 0.12 * size);
+  const fall = jit(r, 0.36 * size);
   return sum(sr, 0.9, [
-    [body(sr, r, { rise: 0.002, fall, f0: jit(r, 1300), f1: jit(r, 350), grit: false }), 0, 1.0],
-    [shockwave(sr, jit(r, 0.018), 180), 0, 0.55],
-    [air(sr, r, { decay: jit(r, 0.02), lp: jit(r, 3000), hp: 200 }), 0, 0.18],
-    [fireball(sr, r, { rise: 0.01, fall: fall * 1.5, fLow: 45, fSpan: 110 }), 0.005, 0.35],
+    [body(sr, r, { rise: 0.002, fall, f0: jit(r, 1400), f1: jit(r, 500), grit: false, hp: 500 }), 0, 1.0],
+    [shockwave(sr, jit(r, 0.05), 200), 0, 0.5],
+    [air(sr, r, { decay: jit(r, 0.10), lp: jit(r, 3000), hp: 200 }), 0, 0.05],
+    [fireball(sr, r, { rise: 0.01, fall: fall * 1.5, fLow: 45, fSpan: 110 }), 0.005, 0.80],
   ]);
 }
 

@@ -4,7 +4,7 @@
       "rank": 50,
       "atOnceLimit": 4,
       "minGapSeconds": 0,
-      "baseGain": 1
+      "baseGain": 0.8
     },
     "shotBallistic": {
       "rank": 100,
@@ -40,7 +40,7 @@
       "rank": 150,
       "atOnceLimit": 12,
       "minGapSeconds": 0,
-      "baseGain": 1
+      "baseGain": 0.5
     },
     "built": {
       "rank": 500,
