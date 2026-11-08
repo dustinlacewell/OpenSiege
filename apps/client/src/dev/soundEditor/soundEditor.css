@@ -1,0 +1,13 @@
+/* The sound page on top of the table editor. The audition panel sits between the table and the info strip:
+   it does not scroll with the table, so the table's sticky header and label column work as on the unit page. */
+.matrix .header-slot { display: none; }
+
+#audition { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 10px 28px; flex: none; max-height: 38vh; overflow: auto; padding: 8px 12px; background: #10161b; border-top: 1px solid #2f3b45; }
+.aud-group { display: flex; flex-direction: column; gap: 6px; }
+.aud-group h2 { margin: 0; font-size: 11px; font-weight: 600; color: #8a98a4; text-transform: uppercase; letter-spacing: 0.12em; }
+.aud-row { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+.aud-field { display: flex; align-items: center; gap: 8px; color: #aab6c0; }
+.aud-field input[type="range"] { width: 220px; }
+.aud-stat { margin-right: 10px; color: #aab6c0; }
+.aud-value { color: #eef3f6; font-variant-numeric: tabular-nums; }
+.aud-active { min-height: 16px; color: #aab6c0; font-variant-numeric: tabular-nums; }

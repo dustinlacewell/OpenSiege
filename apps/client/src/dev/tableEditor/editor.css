@@ -1,0 +1,113 @@
+/* Table editor (the unit stat page, the sound page). Same palette and type as the game (index.html): dark, compact, gold accent. */
+* { box-sizing: border-box; }
+:root { color-scheme: dark; }
+html, body { margin: 0; height: 100%; background: #0b1014; color: #dde4ea; font: 13px/1.3 system-ui, sans-serif; }
+[hidden] { display: none !important; }
+:focus-visible { outline: 2px solid #ffd257; outline-offset: 1px; }
+
+#app { display: flex; flex-direction: column; height: 100vh; }
+
+/* Buttons and inputs */
+button { font: inherit; color: #dde4ea; background: #23303a; border: 1px solid #3b4b58; border-radius: 4px; padding: 4px 10px; cursor: pointer; }
+button:hover:not(:disabled) { background: #2f4050; }
+button:disabled { opacity: 0.4; cursor: default; }
+button.primary { font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #14110a; background: #ffd257; border-color: #ffd257; padding: 4px 18px; }
+button.primary:hover:not(:disabled) { background: #ffdf80; }
+input[type="text"], select { font: inherit; color: #eef3f6; background: #0b1014; border: 1px solid #3b4b58; border-radius: 4px; }
+
+/* Toolbar */
+#toolbar { display: flex; align-items: center; gap: 12px; flex: none; padding: 8px 12px; background: linear-gradient(#151c22, #0c1115); border-bottom: 1px solid #2f3b45; }
+#toolbar h1 { margin: 0 4px 0 0; font-size: 11px; font-weight: 600; color: #8a98a4; text-transform: uppercase; letter-spacing: 0.12em; }
+#toolbar .filter { width: 220px; padding: 5px 10px; }
+#toolbar .filter:focus { border-color: #ffd257; outline: none; }
+#toolbar .toggle { display: flex; align-items: center; gap: 6px; cursor: pointer; color: #aab6c0; }
+#toolbar .count { min-width: 120px; color: #ffd257; font-variant-numeric: tabular-nums; }
+#toolbar .spacer { flex: 1; }
+
+/* Status line under the toolbar */
+#status { flex: none; padding: 6px 12px; border-bottom: 1px solid #2f3b45; background: #10161b; color: #aab6c0; }
+#status.ok { color: #5ee07a; }
+#status.error { color: #ff7a7a; background: #1d1214; }
+#status .errors { margin: 4px 0 0; padding-left: 18px; color: #dde4ea; }
+#status .errors li { margin: 2px 0; }
+#status button.link { padding: 0; background: none; border: none; color: #ffd257; text-decoration: underline; }
+#status button.link:hover:not(:disabled) { background: none; color: #ffdf80; }
+
+/* The matrix: columns across, fields down. The header row and the label column stay put while it scrolls. */
+#scroll { flex: 1; min-height: 0; overflow: auto; }
+.fatal { padding: 24px 12px 8px; color: #ff7a7a; }
+table.matrix { width: 100%; table-layout: fixed; border-collapse: separate; border-spacing: 0; }
+.matrix th, .matrix td { font-weight: 400; }
+.matrix thead th { position: sticky; top: 0; z-index: 3; padding: 8px 6px; background: #10161b; border-bottom: 1px solid #2f3b45; text-align: center; }
+.matrix thead th.corner { left: 0; z-index: 4; width: 232px; }
+
+/* The slot in a column header, filled by the page: a fallback letter (span) under an image (img). */
+.matrix .header-slot { position: relative; width: 72px; height: 72px; margin: 0 auto; background: #0b1014; border: 1px solid #3b4b58; border-radius: 4px; overflow: hidden; }
+.matrix .header-slot span { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: 800; color: #2f3b45; }
+.matrix .header-slot img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover; }
+.matrix img:not([src]) { visibility: hidden; }
+.matrix .column-name { display: block; margin-top: 6px; font-size: 13px; font-weight: 700; color: #eef3f6; }
+.matrix .column-reset { margin-top: 4px; padding: 1px 8px; font-size: 11px; }
+
+/* Stat labels */
+.matrix th.stat { position: sticky; left: 0; z-index: 2; padding: 4px 12px; text-align: left; background: #10161b; border-bottom: 1px solid #1a232a; border-right: 1px solid #2a343c; cursor: help; }
+.matrix .stat-label { color: #dde4ea; }
+.matrix .stat-unit { margin-left: 6px; font-size: 11px; color: #6f7d88; }
+
+/* Section headers */
+.matrix tr.section { cursor: pointer; }
+.matrix tr.section th { position: sticky; left: 0; z-index: 2; padding: 0; text-align: left; background: #151c22; border-bottom: 1px solid #2f3b45; border-right: 1px solid #2a343c; }
+.matrix tr.section td { background: #151c22; border-bottom: 1px solid #2f3b45; }
+.sec-toggle { display: flex; align-items: center; gap: 8px; width: 100%; padding: 7px 12px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; color: #8a98a4; background: none; border: none; text-align: left; }
+.sec-toggle:hover:not(:disabled) { background: none; color: #dde4ea; }
+.sec-toggle .chevron::before { content: ""; display: inline-block; width: 5px; height: 5px; border: solid currentColor; border-width: 0 2px 2px 0; transform: translateY(-2px) rotate(45deg); transition: transform 0.12s; }
+tr.section.collapsed .chevron::before { transform: translateX(-2px) rotate(-45deg); }
+.sec-badge { margin-left: auto; font-size: 10px; letter-spacing: 0.06em; color: #ffd257; }
+.sec-badge:empty { display: none; }
+tr.section.has-invalid .sec-toggle::after { content: "invalid"; font-size: 10px; letter-spacing: 0.06em; color: #ff7a7a; }
+tr.section.has-invalid .sec-badge { margin-left: 0; }
+
+/* Cells */
+.matrix td.cell { position: relative; height: 50px; padding: 5px 10px 8px; text-align: right; vertical-align: top; border-bottom: 1px solid #1a232a; border-left: 1px solid #1a232a; }
+.matrix td.blank { background: rgba(0, 0, 0, 0.25); }
+.matrix tr:hover > td.cell:not(.changed):not(.invalid) { background: rgba(255, 255, 255, 0.03); }
+.matrix tr:hover > th.stat { background: #171f26; }
+.matrix .slot input[type="text"], .matrix .slot select { width: 100%; padding: 3px 6px; text-align: right; font-variant-numeric: tabular-nums; }
+.matrix .slot select { text-align-last: right; }
+.matrix .slot input[type="text"]:focus, .matrix .slot select:focus { border-color: #ffd257; outline: none; }
+.matrix .slot input[type="text"]:hover, .matrix .slot select:hover { border-color: #5a6a76; }
+
+.matrix .was { display: block; min-height: 12px; margin-top: 2px; font-size: 10px; color: #8a98a4; font-variant-numeric: tabular-nums; }
+.matrix .revert { position: absolute; left: 6px; bottom: 5px; width: 18px; height: 16px; padding: 0; line-height: 14px; font-size: 12px; opacity: 0; }
+.matrix td:hover .revert, .matrix td:focus-within .revert { opacity: 1; }
+.matrix .bar { position: absolute; left: 10px; right: 10px; bottom: 3px; height: 3px; border-radius: 2px; background: rgba(255, 255, 255, 0.05); overflow: hidden; }
+.matrix .bar-fill { height: 100%; width: 0; background: rgba(120, 170, 210, 0.5); }
+
+/* Cell states */
+.matrix td.changed { background: rgba(255, 210, 87, 0.08); box-shadow: inset 3px 0 0 #ffd257; }
+.matrix td.changed .bar-fill { background: rgba(255, 210, 87, 0.65); }
+.matrix td.invalid { background: rgba(255, 90, 90, 0.1); }
+.matrix td.invalid input[type="text"], .matrix td.invalid select { border-color: #ff5a5a; box-shadow: 0 0 0 1px #ff5a5a; }
+.matrix td.invalid .was { color: #ff7a7a; }
+.matrix td.dim .slot, .matrix td.dim .bar { opacity: 0.35; }
+.matrix td.focused { background: rgba(255, 255, 255, 0.06); }
+.matrix td.focused.changed { background: rgba(255, 210, 87, 0.14); }
+.matrix td.focused.invalid { background: rgba(255, 90, 90, 0.16); }
+
+/* On/off switch: a real checkbox with a drawn track */
+.matrix .slot.switch { display: flex; justify-content: flex-end; align-items: center; height: 26px; }
+.switch label { position: relative; display: inline-block; width: 36px; height: 20px; cursor: pointer; }
+.switch input { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: pointer; }
+.switch .track { position: absolute; inset: 0; background: #0b1014; border: 1px solid #3b4b58; border-radius: 10px; pointer-events: none; transition: background 0.12s; }
+.switch .track::after { content: ""; position: absolute; top: 2px; left: 2px; width: 14px; height: 14px; border-radius: 50%; background: #8a98a4; transition: transform 0.12s, background 0.12s; }
+.switch input:checked + .track { background: rgba(94, 224, 122, 0.25); border-color: #5ee07a; }
+.switch input:checked + .track::after { transform: translateX(16px); background: #5ee07a; }
+.switch input:focus-visible + .track { outline: 2px solid #ffd257; outline-offset: 1px; }
+
+/* Info strip: what the focused or hovered stat is */
+#info { display: flex; align-items: baseline; gap: 14px; flex: none; min-height: 32px; padding: 7px 12px; font-size: 12px; background: linear-gradient(#151c22, #0c1115); border-top: 1px solid #2f3b45; }
+#info .foot-name { color: #eef3f6; white-space: nowrap; }
+#info .foot-key { color: #6f7d88; font-size: 11px; }
+#info .foot-help { flex: 1; min-width: 0; color: #aab6c0; }
+#info .foot-range, #info .foot-saved { color: #dde4ea; white-space: nowrap; font-variant-numeric: tabular-nums; }
+#info .foot-error { color: #ff7a7a; font-weight: 600; white-space: nowrap; }

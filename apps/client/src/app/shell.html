@@ -1,0 +1,130 @@
+<canvas id="game"></canvas>
+
+<button id="help-button" type="button" aria-label="Controls" title="Controls">?</button>
+<button id="settings-button" type="button" aria-label="Settings" title="Settings">&#9881;</button>
+<div id="settings" class="screen dim" hidden>
+<section id="settings-panel" class="panel">
+  <div id="settings-tabs" class="segmented"></div>
+  <div id="settings-fields"></div>
+  <dl id="settings-controls" hidden>
+    <div><dt>Select</dt><dd>Left click or drag</dd></div>
+    <div><dt>Add to selection</dt><dd><kbd>Shift</kbd> + click</dd></div>
+    <div><dt>Select all of a kind</dt><dd>Double-click</dd></div>
+    <div><dt>Select all</dt><dd><kbd>Ctrl</kbd> <kbd>A</kbd></dd></div>
+    <div><dt>Move or attack</dt><dd>Right click</dd></div>
+    <div><dt>Curve move</dt><dd>Right drag</dd></div>
+    <div><dt>Queue order</dt><dd><kbd>Shift</kbd> + order</dd></div>
+    <div><dt>Rally point</dt><dd><kbd>Ctrl</kbd> + right click</dd></div>
+    <div><dt>Attack-move</dt><dd><kbd>R</kbd> then click</dd></div>
+    <div><dt>Guard</dt><dd><kbd>G</kbd> then click a unit</dd></div>
+    <div><dt>Siege mode</dt><dd><kbd>F</kbd></dd></div>
+    <div><dt>Stop</dt><dd><kbd>H</kbd></dd></div>
+    <div><dt>Build</dt><dd><kbd>Q</kbd><kbd>W</kbd><kbd>E</kbd> <kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> <kbd>Z</kbd><kbd>X</kbd><kbd>C</kbd></dd></div>
+    <div><dt>Build 5</dt><dd><kbd>Shift</kbd> + build key</dd></div>
+    <div><dt>Save group</dt><dd><kbd>Alt</kbd> + <kbd>1</kbd>–<kbd>9</kbd></dd></div>
+    <div><dt>Recall group</dt><dd><kbd>1</kbd>–<kbd>9</kbd></dd></div>
+    <div><dt>Pan</dt><dd>Arrows, screen edge, middle drag</dd></div>
+    <div><dt>Zoom</dt><dd>Wheel</dd></div>
+    <div><dt>Orbit</dt><dd><kbd>Ctrl</kbd> + middle drag</dd></div>
+    <div><dt>Home</dt><dd><kbd>Space</kbd></dd></div>
+  </dl>
+  <button id="settings-close" class="quiet" type="button">Close</button>
+</section>
+</div>
+
+<div id="pause" class="screen dim" hidden>
+  <div id="pause-panel" class="panel">
+    <h2>Menu</h2>
+    <button id="pause-resume" class="primary" type="button">Resume</button>
+    <button id="pause-settings" type="button">Settings</button>
+    <button id="pause-leave" type="button">Leave game</button>
+  </div>
+</div>
+
+<!-- The in-game HUD. Shown only in a match and under the end card (ui/screens.ts). -->
+<div id="game-hud" hidden>
+<div id="topbar" class="hud">
+  <span>Credits <b id="credits">0</b></span>
+  <span>Units <b id="units">0</b></span>
+</div>
+
+<div id="guide" class="hud" hidden>
+  <div id="guide-prompt"></div>
+  <div id="guide-foot">
+    <div id="guide-step"></div>
+    <button id="guide-continue" hidden>Continue (Enter)</button>
+  </div>
+</div>
+
+<div id="leaderboard" class="hud">
+  <h3>Leaderboard</h3>
+  <div id="lb-head"><span></span><span title="Credits">Cr</span><span title="Factories">Fac</span><span title="Harvesters">Har</span><span title="Military power: cost of armed units">Mil</span></div>
+  <ol id="lb-list"></ol>
+</div>
+
+<div id="console">
+  <div id="minimap-box" class="hud box">
+    <canvas id="minimap" width="200" height="200"></canvas>
+  </div>
+
+  <div id="unit-panel" class="hud box">
+    <div id="unit-view">
+      <div id="unit-single" hidden>
+        <div id="single-frame" class="frame"><img id="single-portrait" alt="" /></div>
+        <div class="unit-info">
+          <div id="single-name" class="unit-name"></div>
+          <div class="hp-bar"><div id="single-hp-fill" class="hp-fill"></div></div>
+          <div id="single-hp" class="hp-text"></div>
+          <div id="single-mode" class="unit-mode"></div>
+          <div id="single-activity" class="unit-activity" hidden></div>
+          <div id="single-readouts" class="readouts"></div>
+        </div>
+      </div>
+      <div id="unit-multi" hidden></div>
+    </div>
+    <div id="queue-band"><div id="queue" hidden></div></div>
+  </div>
+
+  <div id="command-card" class="hud box">
+    <div id="palette"></div>
+    <div id="cmd-side">
+      <div id="cmd-actions">
+        <button id="cmd-siege" class="cmd-btn"><span id="cmd-siege-label">Siege</span><span class="slot-key">F</span></button>
+        <button id="cmd-stop" class="cmd-btn">Stop<span class="slot-key">H</span></button>
+        <button id="cmd-guard" class="cmd-btn">Guard<span class="slot-key">G</span></button>
+        <button id="cmd-attack" class="cmd-btn">Attack<span class="slot-key">R</span></button>
+      </div>
+      <div id="tip">
+        <div id="tip-target" hidden>
+          <div id="tip-target-text" class="tip-hint"></div>
+          <div class="tip-line"><span>Esc to cancel</span></div>
+        </div>
+        <div id="tip-body" hidden>
+          <div id="tip-name"></div>
+          <div class="tip-line"><span>Cost</span><b id="tip-cost"></b></div>
+          <div class="tip-line"><span>Build</span><b id="tip-time"></b></div>
+        </div>
+      </div>
+      <div id="palette-pages" hidden></div>
+    </div>
+  </div>
+</div>
+
+<div id="dead-banner" class="hud" hidden>Eliminated. Spectating until the match ends.</div>
+</div><!-- #game-hud -->
+
+<div id="pick-marks" hidden></div>
+<div id="pick" class="hud" hidden>
+  <div id="pick-title"></div>
+  <div id="pick-count"></div>
+  <ul id="pick-list"></ul>
+  <button id="pick-leave" type="button">Leave</button>
+</div>
+
+<div id="end" class="screen dim" hidden>
+  <div id="end-panel" class="panel">
+    <h1 id="end-title"></h1>
+    <div id="end-winner"></div>
+    <button id="end-back" class="primary">Continue</button>
+  </div>
+</div>

@@ -1,0 +1,13 @@
+export { brushWeight } from "./brushWeight.ts";
+export { applyChanges, type HeightChange } from "./changes.ts";
+export { emptyMap, parseMap, parseMapSpec, serializeMap } from "./file.ts";
+export { MATERIAL_CHANNELS, type EditorMap, type MapEntry, type MapProps, type MaterialLayer, type Palette, type PaletteEntry } from "./types.ts";
+export { propsErrors, propsOf } from "./props.ts";
+export { resizeMap } from "./resize.ts";
+export { buildLibrary, MAP_STEM, mapStems, type LibraryFile, type LibraryMap } from "./library.ts";
+export { drawById, drawMap, mapChoices, mapLabel, type MapChoices, type MapDraw, type MapInfo } from "./draw.ts";
+export { applyMaterialChanges, dirtyBounds, paintMaterial, type MaterialBrush, type MaterialChange, type MaterialGrid } from "./materialBrush.ts";
+export { eraseFeatures, moveField, placeField, placeFeature, removeField, resizeField, scatterFeatures, type Bounds, type Disc, type Failed, type Feature, type FeatureOpts, type Field } from "./placement.ts";
+export { MAX_SYMMETRY, NO_SYMMETRY, symmetricPoints, symmetryTransforms, type Point, type Symmetry, type Transform } from "./symmetry.ts";
+export { commitStroke, editBounds, newSession, previewDab, redoLast, strokeDab, symmetricDab, toolReach, undoLast, type DabPreview, type Edit, type Session, type Tool, type VertexRect } from "./session.ts";
+export { heightBrush, type Brush, type HeightGrid, type HeightOp } from "./heightBrush.ts";

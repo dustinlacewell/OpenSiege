@@ -1,0 +1,13 @@
+{
+  "name": "opensiege",
+  "private": true,
+  "license": "AGPL-3.0-only",
+  "type": "module",
+  "packageManager": "pnpm@10.22.0",
+  "devDependencies": {
+    "@ldlework/workmark": "^1.7.0",
+    "@types/node": "^24.0.0",
+    "tsx": "^4.20.0",
+    "typescript": "^5.9.0"
+  }
+}

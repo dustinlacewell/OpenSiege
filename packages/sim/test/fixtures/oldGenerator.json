@@ -1,0 +1,52 @@
+{
+  "1": {
+    "heights": "5ca7a35763eb905d42d5c7c6a7c1eae4",
+    "fields": "730ccd1929f3d0f0ad3fe73f002d6fe0",
+    "features": "9f740da91a27cb2e757e0af3ee3114dd",
+    "counts": [
+      40,
+      1477
+    ],
+    "rng": 3617793729
+  },
+  "2": {
+    "heights": "958c572d1cc660b7ba24ad1a16009756",
+    "fields": "9addb22b0f056602c14f211473ed08e8",
+    "features": "174e63d17ea997f986ff43f577857e66",
+    "counts": [
+      40,
+      1582
+    ],
+    "rng": 3151721954
+  },
+  "42": {
+    "heights": "71a04ac5c081b58df0493b7c11976f8f",
+    "fields": "8bd406054a34a7f8acbef5f6d407624f",
+    "features": "7262ff40ae58ced2148e061d0d6b3f5e",
+    "counts": [
+      40,
+      1513
+    ],
+    "rng": 1808956857
+  },
+  "4242": {
+    "heights": "048f2d6e7099bee23dd54c8a50ccf778",
+    "fields": "a8c2d5459cf2a323c65c6ebea24ede83",
+    "features": "5c1430cf8f7b89dc63868120db12deb9",
+    "counts": [
+      40,
+      1365
+    ],
+    "rng": 913784299
+  },
+  "123456789": {
+    "heights": "2016ff84ea159dc6e4e6047f8a100cfe",
+    "fields": "535f02888021f6b1d00f0970cec40db6",
+    "features": "b5fb1bff7c035744e46b1fa77d31dd58",
+    "counts": [
+      40,
+      1491
+    ],
+    "rng": 412977476
+  }
+}

@@ -1,0 +1,20 @@
+/* The skirmish setup card. Fixed sizes, so nothing reflows as seats come and go. */
+#skirmish { width: 720px; height: 420px; flex: none; padding: 24px; display: grid; grid-template-columns: 280px minmax(0, 1fr);
+  gap: 24px; font-size: 13px; }
+#skirmish h2 { margin: 0; }
+#skirmish .side, #skirmish .main { min-height: 0; display: flex; flex-direction: column; gap: 12px; }
+#skirmish-map { width: 280px; height: 280px; flex: none; cursor: pointer; }
+.map-step { position: absolute; top: 50%; width: 28px; height: 48px; margin-top: -24px; padding: 0; font-size: 20px;
+  background: rgba(6, 9, 12, 0.72); border: none; }
+.map-step.prev { left: 0; border-radius: 0 4px 4px 0; }
+.map-step.next { right: 0; border-radius: 4px 0 0 4px; }
+#skirmish .side .segmented button { flex: 1; }
+#skirmish .roster { flex: 1; min-height: 0; overflow-y: auto; display: flex; flex-direction: column; gap: 16px; }
+#skirmish .note { flex: none; height: 16px; color: #8a98a4; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+#skirmish .foot { flex: none; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+#skirmish .foot input[type="text"], #skirmish .foot input:not([type]) { width: 160px; height: 32px; padding: 0 8px; font-size: 13px; }
+#skirmish .check { display: flex; align-items: center; gap: 8px; color: #aab6c0; cursor: pointer; }
+#skirmish .check input { width: 16px; height: 16px; margin: 0; padding: 0; accent-color: #ffd257; }
+#skirmish .actions { flex: none; display: flex; gap: 8px; }
+#skirmish .actions button { flex: 1; height: 40px; padding: 0; font-size: 13px; }
+#skirmish .actions button.primary { flex: 2; }

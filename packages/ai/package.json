@@ -1,0 +1,9 @@
+{
+  "name": "@mf/ai",
+  "private": true,
+  "type": "module",
+  "exports": { ".": "./src/index.ts" },
+  "dependencies": {
+    "@mf/sim": "workspace:*"
+  }
+}

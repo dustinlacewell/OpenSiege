@@ -1,0 +1,79 @@
+/* Map editor. Same palette and type as the unit editor: dark, compact, gold accent. */
+* { box-sizing: border-box; }
+:root { color-scheme: dark; }
+html, body { margin: 0; height: 100%; overflow: hidden; background: #0b1014; color: #dde4ea; font: 13px/1.3 system-ui, sans-serif; }
+[hidden] { display: none !important; }
+:focus-visible { outline: 2px solid #ffd257; outline-offset: 1px; }
+
+#app { display: flex; flex-direction: column; height: 100vh; }
+#work { flex: 1; min-height: 0; display: flex; position: relative; }
+#fps {
+  position: absolute; top: 6px; right: 8px; pointer-events: none;
+  font: 12px ui-monospace, monospace; color: #cfd6dc; background: rgba(0, 0, 0, 0.45); padding: 2px 6px; border-radius: 3px;
+}
+/* The ring's centre mark is the pointer: the OS pointer always runs a frame ahead of it, so it is hidden. */
+#view { flex: 1; min-width: 0; height: 100%; display: block; touch-action: none; cursor: none; }
+
+/* Buttons */
+button { font: inherit; color: #dde4ea; background: #23303a; border: 1px solid #3b4b58; border-radius: 4px; padding: 4px 10px; cursor: pointer; }
+button:hover:not(:disabled) { background: #2f4050; }
+button:disabled { opacity: 0.4; cursor: default; }
+button.primary { font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #14110a; background: #ffd257; border-color: #ffd257; padding: 4px 18px; }
+button.primary:hover:not(:disabled) { background: #ffdf80; }
+
+/* Toolbar */
+#toolbar { flex: none; background: linear-gradient(#151c22, #0c1115); border-bottom: 1px solid #2f3b45; }
+#toolbar .bar { display: flex; align-items: center; gap: 8px; padding: 8px 12px; }
+#toolbar h1 { margin: 0 8px 0 0; font-size: 11px; font-weight: 600; color: #8a98a4; text-transform: uppercase; letter-spacing: 0.12em; }
+#toolbar .title { margin-left: 8px; color: #aab6c0; font-variant-numeric: tabular-nums; white-space: pre; }
+#toolbar .spacer { flex: 1; }
+#toolbar .status { padding: 6px 12px; border-top: 1px solid #2f3b45; background: #10161b; color: #aab6c0; }
+#toolbar .status.error { color: #ff7a7a; background: #1d1214; }
+#toolbar .errors { margin: 4px 0 0; padding-left: 18px; color: #dde4ea; }
+
+/* Level list: covers the page until a map is open */
+.levels { position: fixed; inset: 0; z-index: 10; display: flex; flex-direction: column; background: #0b1014; }
+.levels .head { flex: none; display: flex; align-items: center; gap: 8px; padding: 10px 16px; border-bottom: 1px solid #2f3b45; background: linear-gradient(#151c22, #0c1115); }
+.levels h2 { margin: 0; font-size: 11px; font-weight: 600; color: #8a98a4; text-transform: uppercase; letter-spacing: 0.12em; }
+.levels .spacer { flex: 1; }
+.levels .grid { flex: 1; overflow-y: auto; padding: 16px; display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; align-content: start; }
+.levels button.card { display: flex; flex-direction: column; gap: 4px; padding: 6px 6px 8px; text-align: left; background: #10161b; border-color: #2f3b45; border-radius: 6px; }
+.levels button.card:hover { background: #17212a; border-color: #ffd257; }
+.levels .picture { aspect-ratio: 1; display: flex; align-items: center; justify-content: center; background: #05080a; border-radius: 4px; overflow: hidden; }
+.levels .picture img { width: 100%; height: 100%; object-fit: contain; display: block; }
+.levels .picture .none { color: #5d6b76; }
+.levels .card .name { padding: 0 2px; font-weight: 600; }
+.levels .card .size { padding: 0 2px; color: #8a98a4; font-variant-numeric: tabular-nums; }
+.levels .empty { margin: 0; color: #8a98a4; }
+.levels .errors { margin: 8px 16px 0; padding-left: 18px; color: #ff7a7a; }
+.levels .errors:empty { display: none; }
+
+/* Properties form */
+dialog.props { width: 320px; padding: 12px 14px; color: #dde4ea; background: #10161b; border: 1px solid #2f3b45; border-radius: 6px; }
+dialog.props::backdrop { background: rgba(6, 9, 12, 0.7); }
+dialog.props h2 { margin: 0 0 10px; font-size: 11px; font-weight: 600; color: #8a98a4; text-transform: uppercase; letter-spacing: 0.12em; }
+dialog.props .row { display: grid; grid-template-columns: 90px 1fr; align-items: center; gap: 8px; margin-bottom: 6px; }
+dialog.props .row .name { color: #aab6c0; }
+dialog.props input { font: inherit; color: #dde4ea; background: #0b1014; border: 1px solid #3b4b58; border-radius: 4px; padding: 3px 6px; }
+dialog.props input:disabled { opacity: 0.5; }
+dialog.props .note { margin: 8px 0 0; color: #ffd257; }
+dialog.props .errors { margin: 8px 0 0; padding-left: 18px; color: #ff7a7a; }
+dialog.props .errors:empty { display: none; }
+dialog.props .actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 12px; }
+
+/* Tool panel */
+#panel { flex: none; width: 236px; overflow-y: auto; padding: 4px 10px 12px; background: #10161b; border-right: 1px solid #2f3b45; }
+#panel .group { padding: 8px 0; border-bottom: 1px solid #1a232a; }
+#panel h2 { margin: 0 0 6px; font-size: 11px; font-weight: 600; color: #8a98a4; text-transform: uppercase; letter-spacing: 0.12em; }
+#panel .items { display: flex; flex-wrap: wrap; gap: 4px; }
+#panel .break { flex-basis: 100%; height: 0; }
+#panel button.tool { padding: 3px 8px; }
+#panel button.tool.on { color: #14110a; background: #ffd257; border-color: #ffd257; }
+#panel .swatch { display: flex; align-items: center; gap: 2px; }
+#panel .swatch button { display: flex; align-items: center; gap: 4px; }
+#panel .chip { width: 12px; height: 12px; border-radius: 2px; border: 1px solid #0b1014; }
+#panel input[type="color"] { width: 18px; height: 22px; padding: 0; border: none; background: none; cursor: pointer; }
+#panel .slider { display: grid; grid-template-columns: 74px 1fr 44px; align-items: center; gap: 6px; width: 100%; }
+#panel .slider .name { color: #aab6c0; }
+#panel .slider .value { text-align: right; color: #ffd257; font-variant-numeric: tabular-nums; }
+#panel input[type="range"] { width: 100%; accent-color: #ffd257; }

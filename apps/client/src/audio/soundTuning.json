@@ -1,0 +1,112 @@
+{
+  "cues": {
+    "shotDirect": {
+      "rank": 50,
+      "atOnceLimit": 4,
+      "minGapSeconds": 0,
+      "baseGain": 1
+    },
+    "shotBallistic": {
+      "rank": 100,
+      "atOnceLimit": 7,
+      "minGapSeconds": 0,
+      "baseGain": 1
+    },
+    "shellGround": {
+      "rank": 150,
+      "atOnceLimit": 12,
+      "minGapSeconds": 0,
+      "baseGain": 1
+    },
+    "shellArmor": {
+      "rank": 150,
+      "atOnceLimit": 12,
+      "minGapSeconds": 0,
+      "baseGain": 1
+    },
+    "roundGround": {
+      "rank": 150,
+      "atOnceLimit": 12,
+      "minGapSeconds": 0,
+      "baseGain": 1
+    },
+    "roundArmor": {
+      "rank": 150,
+      "atOnceLimit": 12,
+      "minGapSeconds": 0,
+      "baseGain": 1
+    },
+    "destroyed": {
+      "rank": 150,
+      "atOnceLimit": 12,
+      "minGapSeconds": 0,
+      "baseGain": 1
+    },
+    "built": {
+      "rank": 500,
+      "atOnceLimit": 4,
+      "minGapSeconds": 0.25,
+      "baseGain": 1
+    },
+    "underAttack": {
+      "rank": 1000,
+      "atOnceLimit": 1,
+      "minGapSeconds": 4,
+      "baseGain": 1
+    },
+    "deploy": {
+      "rank": 50,
+      "atOnceLimit": 4,
+      "minGapSeconds": 0,
+      "baseGain": 1
+    },
+    "pack": {
+      "rank": 50,
+      "atOnceLimit": 4,
+      "minGapSeconds": 0,
+      "baseGain": 1
+    },
+    "credits": {
+      "rank": 900,
+      "atOnceLimit": 2,
+      "minGapSeconds": 2.5,
+      "baseGain": 1
+    },
+    "ack": {
+      "rank": 550,
+      "atOnceLimit": 3,
+      "minGapSeconds": 0.08,
+      "baseGain": 1
+    },
+    "queued": {
+      "rank": 550,
+      "atOnceLimit": 3,
+      "minGapSeconds": 0.08,
+      "baseGain": 1
+    },
+    "refused": {
+      "rank": 600,
+      "atOnceLimit": 3,
+      "minGapSeconds": 0.2,
+      "baseGain": 1
+    },
+    "select": {
+      "rank": 500,
+      "atOnceLimit": 3,
+      "minGapSeconds": 0.05,
+      "baseGain": 1
+    }
+  },
+  "global": {
+    "voiceCap": 24,
+    "reservedSlots": 4,
+    "protectedRank": 500,
+    "masterGain": 0.6,
+    "maxGain": 1.6,
+    "mergeBoost": 0.25,
+    "hearingRange": 0.9,
+    "zoomFloor": 0.15,
+    "zoomNear": 1500,
+    "zoomFar": 12000
+  }
+}
