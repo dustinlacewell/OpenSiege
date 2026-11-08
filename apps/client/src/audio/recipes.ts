@@ -101,9 +101,11 @@ function roundGround(sr: number, r: Rng, size: number): Float32Array<ArrayBuffer
 function roundArmor(sr: number, r: Rng, size: number): Float32Array<ArrayBuffer> {
   const fall = jit(r, 0.3 + 0.15 * size);
   return sum(sr, fall + 0.15, [
-    [body(sr, r, { rise: 0.0015, fall, f0: jit(r, 1200), f1: jit(r, 320) }), 0, 1.0],
+    [body(sr, r, { rise: 0.008, fall: fall * 1.5, f0: jit(r, 1800), f1: jit(r, 1600) }), 0, 1.0],
+    [shockwave(sr, jit(r, 0.04 + 0.015 * size), 500), 0, 0.35],
+    [air(sr, r, { decay: jit(r, 0.06), lp: jit(r, 2000), hp: 120 }), 0, 0.4],
+    [fireball(sr, r, { rise: jit(r, 0.05), fall: fall * 0.3, fLow: 90, fSpan: jit(r, 8000) }), 0.01, 0.8],
     [crunch(sr, r, { sec: 0.45, rate: 9000, decay: jit(r, 0.05), fLow: 400, fHigh: 3500, grainMs: [1, 4], drive: 4 }), 0, 0.75],
-    [air(sr, r, { decay: jit(r, 0.02), lp: jit(r, 1800), hp: 250 }), 0, 0.3],
     [shockwave(sr, jit(r, 0.002), 3500), 0, 0.12],
     [shockwave(sr, jit(r, 0.02), 140), 0, 0.3],
   ]);

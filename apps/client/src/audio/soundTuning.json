@@ -1,46 +1,46 @@
 {
   "cues": {
     "shotDirect": {
-      "rank": 50,
+      "rank": 150,
       "atOnceLimit": 8,
       "minGapSeconds": 0.03,
-      "baseGain": 0.8
+      "baseGain": 0.7
     },
     "shotBallistic": {
-      "rank": 100,
+      "rank": 150,
       "atOnceLimit": 8,
       "minGapSeconds": 0.07,
       "baseGain": 1
     },
     "shellGround": {
-      "rank": 150,
+      "rank": 100,
       "atOnceLimit": 6,
       "minGapSeconds": 0.08,
       "baseGain": 0.8
     },
     "shellArmor": {
-      "rank": 150,
+      "rank": 100,
       "atOnceLimit": 6,
       "minGapSeconds": 0.08,
       "baseGain": 0.7
     },
     "roundGround": {
-      "rank": 150,
+      "rank": 100,
       "atOnceLimit": 6,
       "minGapSeconds": 0,
-      "baseGain": 0.6
+      "baseGain": 0.4
     },
     "roundArmor": {
-      "rank": 150,
+      "rank": 100,
       "atOnceLimit": 6,
       "minGapSeconds": 0,
-      "baseGain": 0.6
+      "baseGain": 0.5
     },
     "destroyed": {
-      "rank": 150,
+      "rank": 200,
       "atOnceLimit": 4,
       "minGapSeconds": 0,
-      "baseGain": 0.5
+      "baseGain": 0.45
     },
     "built": {
       "rank": 500,
