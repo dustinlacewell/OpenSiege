@@ -75,7 +75,13 @@ export function scenarios(reach: number): Scenario[] {
     {
       id: "fight",
       label: "big fight",
-      sounds: byTime([...placed("shotBallistic", 60, 3000), ...placed("shellGround", 40, 3000), ...placed("destroyed", 10, 3000), alert(1500)]),
+      sounds: byTime([
+        ...placed("shotBallistic", 60, 8000),
+        ...placed("shotDirect", 60, 4000),
+        ...placed("shellGround", 60, 5000),
+        ...placed("destroyed", 20, 6000),
+        alert(1500)
+      ]),
     },
     { id: "alert", label: "alert under load", sounds: byTime([...placed("shotDirect", 200, 1000), alert(500)]) },
   ];
