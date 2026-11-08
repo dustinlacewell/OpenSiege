@@ -52,14 +52,11 @@ function howitzer(sr: number, r: Rng, size: number): Float32Array<ArrayBuffer> {
 
 /** Shell into dirt: the earth soaks up the blast. A slower, darker body, a deep whump, then dirt falls. */
 function groundHit(sr: number, r: Rng, size: number): Float32Array<ArrayBuffer> {
-  const fall = jit(r, 0.9 + 0.6 * size);
+  const fall = jit(r, 0.35 + 0.2 * size);
   return sum(sr, fall + 0.2, [
-    [body(sr, r, { rise: 0.008, fall, f0: jit(r, 700), f1: jit(r, 180) }), 0, 1.0],
-    [crunch(sr, r, { sec: 0.9, rate: 3500, decay: jit(r, 0.14), fLow: 200, fHigh: 2400, grainMs: [2, 10], drive: 3 }), 0.003, 0.6],
-    [shockwave(sr, jit(r, 0.04 + 0.015 * size), 100), 0, 0.35],
-    [air(sr, r, { decay: jit(r, 0.06), lp: jit(r, 1400), hp: 120 }), 0, 0.2],
-    [fireball(sr, r, { rise: jit(r, 0.05), fall, fLow: 35, fSpan: jit(r, 90) }), 0.01, 0.8],
-    [dust(sr, r, { start: jit(r, 0.1), peak: jit(r, 0.32), end: jit(r, 0.9 + 0.3 * size), lp: jit(r, 2000) }), 0, 0.14],
+    [body(sr, r, { rise: 0.004, fall: fall * 1.2, f0: jit(r, 800), f1: jit(r, 300) }), 0, 1.0],
+    [crunch(sr, r, { sec: 0.5, rate: 3000, decay: jit(r, 0.08), fLow: 200, fHigh: 2200, grainMs: [2, 8], drive: 3 }), 0, 0.55],
+    [shockwave(sr, jit(r, 0.02), 120), 0, 0.3],
   ]);
 }
 
@@ -89,12 +86,14 @@ function tankGun(sr: number, r: Rng, size: number): Float32Array<ArrayBuffer> {
 
 /** Tank round into dirt: a short thud and a spray of earth. */
 function roundGround(sr: number, r: Rng, size: number): Float32Array<ArrayBuffer> {
-  const fall = jit(r, 0.35 + 0.2 * size);
+  const fall = jit(r, 0.3 + 0.6 * size);
   return sum(sr, fall + 0.2, [
-    [body(sr, r, { rise: 0.004, fall, f0: jit(r, 800), f1: jit(r, 220) }), 0, 1.0],
-    [crunch(sr, r, { sec: 0.5, rate: 3000, decay: jit(r, 0.08), fLow: 200, fHigh: 2200, grainMs: [2, 8], drive: 3 }), 0, 0.55],
-    [shockwave(sr, jit(r, 0.02), 120), 0, 0.3],
-    [dust(sr, r, { start: jit(r, 0.08), peak: jit(r, 0.22), end: jit(r, 0.6), lp: jit(r, 2000) }), 0, 0.1],
+    [body(sr, r, { rise: 0.008, fall: fall * 1.5, f0: jit(r, 1800), f1: jit(r, 1600) }), 0, 1.0],
+    [shockwave(sr, jit(r, 0.04 + 0.015 * size), 500), 0, 0.35],
+    [air(sr, r, { decay: jit(r, 0.06), lp: jit(r, 2000), hp: 120 }), 0, 0.4],
+    [fireball(sr, r, { rise: jit(r, 0.05), fall: fall * 0.3, fLow: 90, fSpan: jit(r, 8000) }), 0.01, 0.8],
+    [crunch(sr, r, { sec: 0.9, rate: 3500, decay: jit(r, 0.14), fLow: 200, fHigh: 2400, grainMs: [2, 10], drive: 3 }), 0.003, 0.7],
+    [dust(sr, r, { start: jit(r, 0.3), peak: jit(r, 0.32), end: jit(r, 1.5 + 0.3 * size), lp: jit(r, 2200) }), 0, 0.3],
   ]);
 }
 
