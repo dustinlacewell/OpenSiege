@@ -14,11 +14,10 @@ export const SYNTHS: Record<SynthCue, Synth> = {
     const air = echoed(v, 0.12);
     const hot = saturate(air);
     return Math.max(
-      rumble(air, 1800, 400, 0.5, 0.03, 0, 0.002, 0),
-      tone(hot, "sine", 100, 30, 0.85, 0.9 + 0.5 * size),
-      rumble(hot, 600, 60, 4.5, 1.4 + 1.4 * size, 0.01, 0.015, 0.35),
-      rumble(air, 300, 30, 5.0, 3.2 + 2.8 * size, 0.1, 0.15, 0.6),
-      rumble(air, 200, 30, 3.0, 3.5 + 2.5 * size, 0.6 + 0.8 * Math.random(), 0.9, 0.6),
+      rumble(air, 500, 200, 9 * size, 0.03, 0.05, 0.010, 0),
+      rumble(hot, 1400, 600, 6 * size, 1.5 * size, 0.007, 0.03, 0.05),
+      rumble(hot, 1800, 1450, 7 * size, 1 * size, 0.003, 0.03, 0.05),
+      tone(hot, "sine", 100, 30, 1 * size, 1.4 * size),
     );
   },
 
